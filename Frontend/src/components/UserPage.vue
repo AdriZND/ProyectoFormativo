@@ -1,0 +1,130 @@
+<script setup>
+import { useAuthStore } from "@/stores/auth.store";
+import UsersDataService from "@/services/UsersDataService";
+import Button from "@/components/Button.vue"
+
+//Buscamos el user en la base de datos
+const fetchUserData = async () => {
+    const authStore = useAuthStore()
+    const session = authStore.session
+
+    if (session && session.id_user) {
+        try {
+            const response = await UsersDataService.findOneById(session.id_user)
+            const user = response.data.user
+            return user
+        } catch (error) {
+            console.log('Error fetching user data:', error)
+            return null
+        }
+    } else {
+        console.error('Session not found.')
+        throw error
+    }
+}
+//Guardamos el user en una variable
+const user = await fetchUserData()
+
+//Buscamos en la bdd las relaciones para ver que profesor y asignaturas tiene relacionados
+const fetchUserRelation = async () => {
+    try {
+        const id = user.id
+        const response = await UsersDataService.findUserRelations(id)
+        const relation = response.data.relation
+        return relation
+    } catch (error) {
+        console.log(error)
+    }
+}
+//Guardamos las relacions en una variable
+const relation = await fetchUserRelation()
+
+//Iteramos las relaciones obtenidas para guardar los datos en un array
+const relationData = []
+if (user.role === 1) {
+    for (let rel of relation) {
+        const resTeacher = await UsersDataService.findOneById(rel.id_teacher)
+        const teacher = resTeacher.data.user
+        const resSubject = await UsersDataService.findUserSubject(rel.id_subject)
+        const subject = resSubject.data.subject
+        relationData.push({ teacher, subject })
+    }
+} else {
+    for (let rel of relation) {
+        const resStudent = await UsersDataService.findOneById(rel.id_student)
+        const student = resStudent.data.user
+        const resSubject = await UsersDataService.findUserSubject(rel.id_subject)
+        const subject = resSubject.data.subject
+        relationData.push({ student, subject })
+    }
+}
+console.log(relationData)
+
+</script>
+
+<template>
+    <div v-if="user.role === 1">
+        <div class="row">
+            <div class="col-12 h3">Bienvenido! {{ user.username }}</div>
+        </div>
+        <div class="row">
+            <h6 class="col-12">Lista de profesores</h6>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover table-sm">
+
+                <thead>
+                    <tr>
+                        <th scope="col"> Nombre </th>
+                        <th scope="col"> Apellidos</th>
+                        <th scope="col"> Email </th>
+                        <th scope="col"> Asignatura</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    <tr v-for="data in relationData">
+                        <td>{{ data.teacher.name }}</td>
+                        <td>{{ data.teacher.surnames }}</td>
+                        <td>{{ data.teacher.email }}</td>
+                        <td>{{ data.subject.subject_name }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div v-if="user.role === 2">
+        <div class="row">
+            <div class="col-12 h3">Bienvenido! {{ user.username }}</div>
+        </div>
+        <div class="row">
+            <h6 class="col-12">Lista de alumnos</h6>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover table-sm">
+
+                <thead>
+                    <tr>
+                        <th scope="col"> Nombre </th>
+                        <th scope="col"> Apellidos</th>
+                        <th scope="col"> Email </th>
+                        <th scope="col"> Asignatura</th>
+                        <th scope="col">Editar</th>
+                        <th scope="col">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    <tr v-for="data in relationData">
+                        <td>{{ data.student.name }}</td>
+                        <td>{{ data.student.surnames }}</td>
+                        <td>{{ data.student.email }}</td>
+                        <td>{{ data.subject.subject_name }}</td>
+                        <td> <Button action="Edit" :username="data.student.username "/> </td>
+                        <td> <Button action="Delete" :userID="data.student.id" /> </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</template>
+
+<style scoped></style>
