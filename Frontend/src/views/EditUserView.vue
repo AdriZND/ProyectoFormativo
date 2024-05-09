@@ -1,11 +1,9 @@
-<script setup>
-</script>
+<script setup></script>
 
 <template>
-    <div>
+  <div>
     <h1>EDIT USER</h1>
-    </div>
+  </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

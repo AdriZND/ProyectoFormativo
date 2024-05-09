@@ -8,21 +8,24 @@ import UserPage from "../components/UserPage.vue"
 <template>
     <div class="container">
         <div class="row">
-            <div class="col-9">
+            <div class="col">
                 <h1>HOME PAGE</h1>
             </div>
-            <div class="col-3">
-                <Button action="Logout" />
+            <div class="col">
+                <div class="d-flex justify-content-end">
+                    <Button class="me-2 btn btn-sm btn-secondary" action="Profile" text="Perfil" />
+                    <Button class="btn btn-sm btn-outline-secondary" action="Logout" text="Salir" />
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col-12">
                 <Suspense>
-                <UserPage/>
+                    <UserPage />
                 </Suspense>
             </div>
         </div>
-    </div>  
+    </div>
 </template>
 
 <style scoped>
@@ -32,8 +35,10 @@ import UserPage from "../components/UserPage.vue"
     background-color: aliceblue;
     border: black 2px solid;
     padding: 3em;
-    height: 90dvh;
-    width: 70dvw;
+    min-height: 50dvh;
+    min-width: 50dvw;
+    height: auto;
+    width: auto;
 
 }
 </style>

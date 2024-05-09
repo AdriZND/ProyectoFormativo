@@ -1,11 +1,25 @@
 <script setup>
+import ProfilePage from "@/components/ProfilePage.vue";
 </script>
 
 <template>
-    <div>
-        <h1>PERFIL DE USUARIO</h1>
-    </div>
+  <div class="container">
+    <Suspense>
+      <ProfilePage />
+    </Suspense>
+  </div>
 </template>
 
 <style scoped>
+.container {
+  color: #35495e;
+  border-radius: 2em;
+  background-color: aliceblue;
+  border: black 2px solid;
+  padding: 3em;
+  min-height: 50dvh;
+  min-width: 50dvw;
+  height: auto;
+  width: auto;
+}
 </style>
