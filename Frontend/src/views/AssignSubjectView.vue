@@ -3,6 +3,8 @@ import { useAuthStore } from "@/stores/auth.store";
 import { useRouter } from "vue-router";
 import DynamicSearch from "@/components/DynamicSearch.vue";
 import UsersDataService from "@/services/UsersDataService";
+import SubjectsDataService from "@/services/SubjectsDataService";
+import RelationsDataService from "@/services/RelationsDataService";
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -19,7 +21,7 @@ const handleUserSelected = async (username) => {
 
 const handleSubjectSelected = async (subjectName) => {
   console.log(subjectName);
-  const response = await UsersDataService.findSubjectName(subjectName);
+  const response = await SubjectsDataService.findSubjectName(subjectName);
   id_subject = response.data.id;
   id_teacher = response.data.id_teacher;
   console.log(id_subject);
@@ -27,7 +29,7 @@ const handleSubjectSelected = async (subjectName) => {
 
 const handleSubmit = async () => {
   try {
-    const res = await UsersDataService.assignRelation(
+    const res = await RelationsDataService.assignRelation(
       id_user,
       id_teacher,
       id_subject

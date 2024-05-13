@@ -1,5 +1,5 @@
-const { sequelize, Sequelize } = require(".");
-const { DataTypes } = require("sequelize");
+const { sequelize, Sequelize } = require(".")
+const { DataTypes } = require("sequelize")
 
 module.exports = (sequelize, Sequelize) => {
   const User = sequelize.define(
@@ -31,6 +31,9 @@ module.exports = (sequelize, Sequelize) => {
           key: "id",
         },
       },
+      avatarPath: {
+        type: DataTypes.STRING,
+      },
       access_token: {
         type: DataTypes.UUID,
       },
@@ -45,7 +48,9 @@ module.exports = (sequelize, Sequelize) => {
     {
       timestamps: false,
     }
-  );
+  )
 
-  return User;
-};
+ 
+
+  return User
+}

@@ -1,4 +1,5 @@
 <script setup>
+import RelationsDataService from "@/services/RelationsDataService";
 import UsersDataService from "@/services/UsersDataService";
 import { useAuthStore } from "@/stores/auth.store";
 import { useRouter } from "vue-router";
@@ -17,6 +18,9 @@ const props = defineProps({
   relationID: {
     type: Number,
   },
+  editUser: {
+    type: Number,
+  },
   username: {
     type: String,
   },
@@ -32,10 +36,10 @@ const onClick = async () => {
   if (props.action === "Logout") {
     return authStore.logout();
   } else if (props.action === "Edit") {
-    router.push(`/home/${editUser}/edit`);
+    router.push(`/home/edit/${editUser}`);
   } else if (props.action === "Delete") {
     //Delete
-    await UsersDataService.deleteUserRelation(id);
+    await RelationsDataService.deleteUserRelation(id);
     router.go(0);
   } else if (props.action === "Profile") {
     router.push(`/profile/${username}`);

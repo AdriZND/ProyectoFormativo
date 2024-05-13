@@ -5,6 +5,11 @@ import { createApp, markRaw } from 'vue'
 import { createPinia } from 'pinia'
 import router from './router/router'
 import App from './App.vue'
+import PrimeVue from 'primevue/config'
+import 'primevue/resources/themes/aura-light-green/theme.css'
+import ToastService from 'primevue/toastservice';
+
+
 
 
 const app = createApp(App)
@@ -16,6 +21,8 @@ pinia.use(({store}) => {
 
 app
 .use(bootstrap)
+.use(PrimeVue)
+.use(ToastService)
 .use(pinia)
 .use(router)
 .mount('#app')

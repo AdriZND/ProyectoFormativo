@@ -1,6 +1,8 @@
 <script setup>
 import { useAuthStore } from "@/stores/auth.store";
 import UsersDataService from "@/services/UsersDataService";
+import RelationsDataService from "@/services/RelationsDataService";
+import SubjectsDataService from "@/services/SubjectsDataService";
 import Button from "@/components/Button.vue";
 
 const authStore = useAuthStore();
@@ -9,14 +11,14 @@ const user = authStore.user;
 //Buscamos en la bdd las relaciones para ver que profesor y asignaturas tiene relacionados
 const fetchUserRelation = async () => {
   try {
-    const id = user.id;
-    const response = await UsersDataService.findUserRelations(id);
-    const relation = response.data.relation;
-    return relation;
+    const id = user.id
+    const response = await RelationsDataService.findUserRelations(id)
+    const relation = response.data.relation
+    return relation
   } catch (error) {
-    console.log(error);
+    console.log(error)
   }
-};
+}
 //Guardamos las relacions en una variable
 const relation = await fetchUserRelation();
 
@@ -26,7 +28,7 @@ if (user.role === 1) {
   for (let rel of relation) {
     const resTeacher = await UsersDataService.findOneById(rel.id_teacher);
     const teacher = resTeacher.data.user;
-    const resSubject = await UsersDataService.findUserSubject(rel.id_subject);
+    const resSubject = await SubjectsDataService.findUserSubject(rel.id_subject);
     const subject = resSubject.data.subject;
     relationData.push({ teacher, subject });
   }
@@ -34,7 +36,7 @@ if (user.role === 1) {
   for (let rel of relation) {
     const resStudent = await UsersDataService.findOneById(rel.id_student);
     const student = resStudent.data.user;
-    const resSubject = await UsersDataService.findUserSubject(rel.id_subject);
+    const resSubject = await SubjectsDataService.findUserSubject(rel.id_subject);
     const subject = resSubject.data.subject;
     const id_relation = rel.id;
     relationData.push({ student, subject, id_relation });
@@ -100,7 +102,7 @@ console.log(relationData);
             <td>
               <Button
                 action="Edit"
-                :editUser="data.student.username"
+                :editUser="data.student.id"
                 text="Editar"
                 class="btn btn-sm btn-secondary"
               />

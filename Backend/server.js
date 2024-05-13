@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const passport = require("passport");
 const app = express();
+const path = require('path')
 
 
 //Conectar a la DB
@@ -30,6 +31,9 @@ app.use(cors(corsOptions));
 //Body parser Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+
+app.use('/app/assets', express.static(path.join(__dirname, 'app', 'assets')))
 
 //Passport strategies config
 require("./app/controllers/passport.controller")(passport, db.users);

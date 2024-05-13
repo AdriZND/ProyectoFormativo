@@ -3,9 +3,7 @@ import { useForm } from "vee-validate";
 import * as yup from "yup";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth.store";
-import UsersDataService from "@/services/UsersDataService";
-
-import DyncamicSearch from "@/components/DynamicSearch.vue";
+import SubjectsDataService from "@/services/SubjectsDataService";
 
 const authStore = useAuthStore();
 const user = authStore.user;
@@ -25,7 +23,7 @@ const [subject, subjectAttrs] = defineField("subject");
 
 const onSuccess = async (subject) => {
   try {
-    const res = await UsersDataService.createSubject(subject, user.id);
+    const res = await SubjectsDataService.createSubject(subject, user.id);
     if (res.status === 200) {
       alert(res.data.message);
       router.go(-1);

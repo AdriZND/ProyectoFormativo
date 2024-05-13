@@ -12,12 +12,13 @@
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "lodash": "^4.17.21",
+    "multer": "^1.4.5-lts.1",
     "pinia": "^2.1.7",
+    "primevue": "^3.52.0",
     "uuid-by-string": "^4.0.0",
     "vee-validate": "^4.12.6",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
-    "vue3-cookies": "^1.0.6",
     "yup": "^1.4.0"
   },
   "devDependencies": {

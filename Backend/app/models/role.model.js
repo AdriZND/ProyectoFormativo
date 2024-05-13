@@ -1,5 +1,5 @@
-const { sequelize, Sequelize, roles } = require(".");
-const { DataTypes } = require("sequelize");
+const { sequelize, Sequelize, roles } = require(".")
+const { DataTypes } = require("sequelize")
 
 module.exports = (sequelize, Sequelize) => {
   const Role = sequelize.define(
@@ -17,8 +17,8 @@ module.exports = (sequelize, Sequelize) => {
     {
       timestamps: false,
     }
-  );
-  /*       Role.sync({})
+  )
+  /*         Role.sync({})
         .then(() => {
             console.log("Roles creados correctamente")
             Role.create({
@@ -33,6 +33,6 @@ module.exports = (sequelize, Sequelize) => {
         }).catch((error) => {
             console.error('Fallo creando los roles: ', error)
         }) 
-      */
-  return Role;
-};
+       */
+  return Role
+}

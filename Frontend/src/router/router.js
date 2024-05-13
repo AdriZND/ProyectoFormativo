@@ -42,7 +42,7 @@ const routes = [
     component: HomePageView,
   },
   {
-    path: "/home/:username/edit",
+    path: "/home/edit/:id",
     component: EditUserView,
   },
   {
