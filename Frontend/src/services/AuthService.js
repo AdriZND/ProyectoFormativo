@@ -1,39 +1,36 @@
-import { useAuthStore } from "@/stores/auth.store";
-import getUuidByString from "uuid-by-string";
-import http from "@/config/http-common";
+import { useAuthStore } from "@/stores/auth.store"
+import http from "@/config/http-common"
 
 class AuthService {
-  /* authHeader() {
-  const { session } = useAuthStore();
-  if (user && session.id_user) {
-    return {
-      "x-access-token": session.id_user,
-    };
-  } else {
-    return {};
+  authHeader() {
+    const user = JSON.parse(localStorage.getItem("user"))
+    if (user && user.access_token) {
+      return {
+        "x-access-token": user.access_token,
+      }
+    } else {
+      return {}
+    }
   }
-
-
-} */
 
   //Login
   login(user) {
     const body = {
       username: user.username,
-      password_token: getUuidByString(user.password),
-    };
+      password: user.password,
+    }
 
-    return http.post("/login", body);
+    return http.post("/login", body)
   }
 
   //Logout
   logout() {
-    const session = JSON.parse(localStorage.getItem("session"));
+    const session = JSON.parse(localStorage.getItem("session"))
     const body = {
       id_user: session.id_user,
-    };
-    return http.post("/logout", body);
+    }
+    return http.post("/logout", body, {headers: this.authHeader()})
   }
 }
 
-export default new AuthService();
+export default new AuthService()

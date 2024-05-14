@@ -1,4 +1,5 @@
 import http from "../config/http-common";
+import AuthService from "./AuthService";
 
 class UsersDataService {
   //Funcion para crear al user en BDD
@@ -24,7 +25,7 @@ class UsersDataService {
       email: user.email,
       password: user.password
     }
-    return http.put(`/user/username/id?id=${id}`, body)
+    return http.put(`/user/username/id?id=${id}`, body, {headers: AuthService.authHeader()})
   }
   //Función para cambiar la contraseña al user en bdd
   changePassword(user, route) {
@@ -36,12 +37,12 @@ class UsersDataService {
 
   //Función para validar el email del usuario y cambiar el estado de la cuenta a
   //activo
-  validateEmail(route) {
+  validateEmail(username) {
     const body = {
       active: true,
     };
 
-    return http.put("/user/username/" + route, body);
+    return http.put(`/user/username/username?username=${username}`, body);
   }
 
   //Funcion para que el user pueda cambiar la contraseña a traves del email
@@ -54,23 +55,23 @@ class UsersDataService {
   }
   //FindAllUsername
   findAll() {
-    return http.get(`/user`);
+    return http.get(`/user`, {headers: AuthService.authHeader()} );
   }
 
   findAllStudents(){
-    return http.get(`/user/students`)
+    return http.get(`/user/students`, {headers: AuthService.authHeader()})
   }
   //FindOneByID
   findOneById(id_user) {
-    return http.get(`/user/id?id=${id_user}`);
+    return http.get(`/user/id?id=${id_user}`, {headers: AuthService.authHeader()});
   }
   //Find one by username
   findOneUsername(username) {
-    return http.get(`/user/username?username=${username}`);
+    return http.get(`/user/username?username=${username}`, {headers: AuthService.authHeader()});
   }
 
   deleteUser(id) {
-    return http.delete(`/user/username/id?id=${id}`);
+    return http.delete(`/user/username/id?id=${id}`, {headers: AuthService.authHeader()});
   }
 }
 

@@ -1,56 +1,61 @@
 const db = require("../models")
 const User = db.users
 const Op = db.Sequelize.Op
+
 const getUuid = require("uuid-by-string")
 const {
   sendMessageValidation,
   sendMessageForgetPassword,
 } = require("../config/email.config")
+const bcrypt = require("bcrypt")
+const saltRounds = 10
 
 //Crear y guardar un nuevo Usuario
 exports.create = async (req, res) => {
-  //Validar si el usuario ya está en la BDD
-  if (await User.findOne({ where: { username: req.body.username } })) {
-    res.status(250).send({
-      message: "Username has already been registered",
+  try {
+    // Check if existing user in the database
+    const existingUser = await User.findOne({
+      where: { username: req.body.username },
     })
-    return
-  } else if (
-    req.body.role === "2" &&
-    req.body.token !== process.env.TOKEN_PROFESOR
-  ) {
-    res.status(260).send({
-      message: "Token provided wasn't valid",
-    })
-    return
-  } else {
-    //Crear usuario
+    if (existingUser) {
+      return res
+        .status(250)
+        .send({ message: "Username has already been registered" })
+    }
+
+    // Check token
+    if (
+      req.body.role === "2" &&
+      req.body.token !== process.env.TOKEN_PROFESOR
+    ) {
+      return res.status(260).send({ message: "Token provided wasn't valid" })
+    }
+
+    // Hash password
+    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds)
+
+    // Create user
     const user = {
       username: req.body.username,
       name: req.body.name,
       surnames: req.body.surnames,
       email: req.body.email,
       role: req.body.role,
-      password_token: getUuid(req.body.password),
+      password_token: hashedPassword,
     }
 
-    //Guardar usuario en DB
-    await User.create(user)
-      .then((data) => {
-        //Enviar mensaje de validación de correo electrónico
+    const createdUser = await User.create(user)
 
-        sendMessageValidation(data.email, data.username)
+    sendMessageValidation(createdUser.email, createdUser.username)
 
-        res.status(200).send({
-          message:
-            "User created successfully, please validate your email to login",
-        })
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message: err.message || "Error al crear usuario",
-        })
-      })
+    res.status(200).send({
+      message: "User created successfully, please validate your email to login",
+    })
+  } catch (error) {
+    console.error(error)
+    res.status(500).send({
+      message: error.message || "Error al crear usuario",
+    })
   }
 }
 
@@ -140,45 +145,73 @@ exports.findOneId = async (req, res) => {
 //Update de usuario mediante el username
 exports.update = async (req, res) => {
   const id = req.query.id
-  const body = {
-    name: req.body.name,
-    surnames: req.body.surnames,
-    username: req.body.username,
-    email: req.body.email,
-    password_token: await getUuid(req.body.password)
-  }
+    try {
+      const hashedPassword = await bcrypt.hash(req.body.password, saltRounds)
+      const body = {
+        name: req.body.name,
+        surnames: req.body.surnames,
+        username: req.body.username,
+        email: req.body.email,
+        password_token: hashedPassword,
+      }
+
+      const response = await User.update(body, {
+        where: { id: id },
+      })
+      if (response) {
+        res.status(200).json({
+          message: "User updated successfully",
+        })
+      } else {
+        res.send({
+          message: `Cannot update user with id: ${id}`,
+        })
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  
+}
+
+exports.updateValidation = async (req, res) => {
+  const username = req.query.username
 
   if (req.body.active === true) {
-    req.body.access_token = await getUuid(req.params.username)
-  }
-  try {
-    const response = await User.update(body, {
-      where: { id: id },
-    })
-    if (response) {
-      res.status(200).json({
-        message: "User updated successfully",
+    const activeUser = await User.findOne({ where: { username: username } })
+    const body = {
+      access_token: await getUuid(activeUser.username),
+      active: req.body.active,
+    }
+    
+    try {
+      const response = await User.update(body, {
+        where: { username: username },
       })
-    } else {
-      res.send({
-        message: `Cannot update user with id: ${id}`,
+      if (response) {
+        res.status(200).json({
+          message: "User updated successfully",
+        })
+      } else {
+        res.send({
+          message: `Cannot update user with username: ${username}`,
+        })
+      }
+    } catch (error) {
+      console.log(error)
+      res.status(500).send({
+        message: `Error updating user with username=${username} `,
       })
     }
-  } catch (error) {
-    console.log(error)
-    res.status(500).send({
-      message: `Error updating user with id=${id} `,
-    })
   }
 }
 
 //Update de password de usuario mediante access_token
 exports.updateUserPassword = async (req, res) => {
   const access_token = req.params.access_token
-
+  const hashedPassword = await bcrypt.hash(req.body.password, saltRounds)
   const password_token = {
-    password_token: await getUuid(req.body.password),
-  }
+    password_token: hashedPassword,
+  } 
 
   await User.update(password_token, {
     where: { access_token: access_token },

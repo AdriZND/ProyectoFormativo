@@ -1,6 +1,7 @@
 module.exports = (app, passport) => {
   const sessions = require("../controllers/session.controller");
   const authRouter = require("express").Router();
+  const authMiddleware = require("../config/authMiddleware.config")
 
   //Dirección en la que se efectuará la petición y manejo de la misma
   authRouter.post("/login", (req, res, next) => {
@@ -26,7 +27,7 @@ module.exports = (app, passport) => {
     })(req, res, next);
   });
 
-  authRouter.post("/logout", sessions.delete);
+  authRouter.post("/logout", authMiddleware, sessions.delete);
 
   app.use("/api", authRouter);
 };

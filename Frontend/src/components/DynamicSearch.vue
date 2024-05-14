@@ -112,6 +112,7 @@ console.log(selectedUser)
       v-model="selectedUser"
       class="form-select"
       @change="handleUserchange"
+      
     >
       <!--  <option value="" disabled>Selecciona un usuario</option> -->
       <option
@@ -134,8 +135,9 @@ console.log(selectedUser)
       v-model="selectedSubject"
       class="form-select"
       @change="handleSubjectChange"
+      
     >
-      <!--  <option value="" disabled>Selecciona una asignatura</option> -->
+     
       <option
         v-for="subject in filteredSubjects"
         :key="subject.id"

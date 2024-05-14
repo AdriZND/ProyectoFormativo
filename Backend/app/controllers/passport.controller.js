@@ -1,48 +1,56 @@
 module.exports = (passport, user) => {
-  const LocalStrategy = require("passport-local").Strategy;
-  const User = user;
+  const LocalStrategy = require("passport-local").Strategy
+  const User = user
+  const bcrypt = require("bcrypt")
+
 
   passport.use(
     "local-login",
     new LocalStrategy(
       {
         usernameField: "username",
-        passwordField: "password_token",
+        passwordField: "password",
         passReqToCallback: true,
       },
-      function (req, username, password_token, done) {
-        const isValidPassword = (userPass, password_token) => {
-          return userPass === password_token ? true : false;
-        };
-        //Buscamos el usuario por el username
+      function (req, username, password, done) {
+        // Find the user by username
         User.findOne({ where: { username: username } })
           .then((user) => {
-            //Si no existe el usuario
+            // If user does not exist
             if (!user) {
               return done(null, false, {
                 message: "Incorrect username or password",
-              });
+              })
             }
-            //Si existe el usuario pero la contraseña no es correcta
-            if (!isValidPassword(user.password_token, password_token)) {
-              return done(null, false, { message: "Incorrect password" });
-            }
-            //Si todo es correcto pero el estado de la cuenta es inactivo
-            if (!user.dataValues.active) {
-              return done(null, false, {
-                message: "You must validate your e-mail before loggin in",
-              });
-            }
-            //Si todo es correcto, se devuelve el usuario
-            return done(null, user);
+            // Compare the provided password with the hashed password
+            bcrypt.compare(
+              password,
+              user.password_token,
+              function (err, result) {
+                if (err) {
+                  return done(err)
+                }
+                if (!result) {
+                  return done(null, false, { message: "Incorrect password" })
+                }
+                // If everything is correct but the account is inactive
+                if (!user.dataValues.active) {
+                  return done(null, false, {
+                    message: "You must validate your e-mail before logging in",
+                  })
+                }
+                // If everything is correct, return the user
+                return done(null, user)
+              }
+            )
           })
           .catch((err) => {
-            console.log("Error: ", err);
+            console.error("Error: ", err)
             return done(null, false, {
-              message: "Something went wront with your Login",
-            });
-          });
+              message: "Something went wrong with your login",
+            })
+          })
       }
     )
-  );
-};
+  )
+}

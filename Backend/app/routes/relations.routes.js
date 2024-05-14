@@ -1,16 +1,17 @@
 module.exports = (app) => {
   const relations = require("../controllers/relations.controller")
   const relationRouter = require("express").Router()
+  const authMiddleware = require("../config/authMiddleware.config")
 
-  relationRouter.get("/user/relations/id", relations.findUserRelations)
+  relationRouter.get("/user/relations/id", authMiddleware, relations.findUserRelations)
 
-  relationRouter.get("/user/subjects/id", relations.findUserSubject)
+  relationRouter.get("/user/subjects/id", authMiddleware, relations.findUserSubject)
 
-  relationRouter.delete("/user/relations/id", relations.delete)
+  relationRouter.delete("/user/relations/id", authMiddleware, relations.delete)
 
-  relationRouter.post("/user/relations", relations.create)
+  relationRouter.post("/user/relations", authMiddleware, relations.create)
 
-  relationRouter.get("/user/subjects/id_subject", relations.findNumberOfStudents)
+  relationRouter.get("/user/subjects/id_subject", authMiddleware, relations.findNumberOfStudents)
 
   app.use("/api", relationRouter)
 }

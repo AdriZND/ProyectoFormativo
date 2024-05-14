@@ -13,15 +13,19 @@ module.exports = (sequelize, Sequelize) => {
       username: {
         type: DataTypes.STRING,
         unique: true,
+        allowNull: false,
       },
       name: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       surnames: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       email: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       role: {
         type: DataTypes.INTEGER,
@@ -38,7 +42,8 @@ module.exports = (sequelize, Sequelize) => {
         type: DataTypes.UUID,
       },
       password_token: {
-        type: DataTypes.UUID,
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       active: {
         type: DataTypes.BOOLEAN,
