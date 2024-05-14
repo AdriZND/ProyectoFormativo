@@ -11,7 +11,7 @@ const props = defineProps({
     type: String,
     required: true,
     validator: (value) =>
-      ["Logout", "Edit", "Delete", "Profile", "Add Subject", "Assign"].includes(
+      ["Logout", "Edit", "Delete", "Profile", "Add Subject", "Assign", "Signup"].includes(
         value
       ),
   },
@@ -47,6 +47,8 @@ const onClick = async () => {
     router.push(`/subjects/add`);
   } else if (props.action === "Assign") {
     router.push(`/subjects/assign`);
+  } else if (props.action === 'Signup'){
+    router.push(`/signup`)
   }
 };
 </script>

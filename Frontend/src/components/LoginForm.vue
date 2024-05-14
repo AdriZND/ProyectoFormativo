@@ -4,6 +4,7 @@ import { useForm } from "vee-validate";
 import * as yup from "yup";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth.store";
+import Button from "./Button.vue"
 
 const router = useRouter();
 
@@ -54,10 +55,8 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit);
       />
 
       <div class="d-flex justify-content-between">
-        <button type="submit" class="btn btn-secondary mt-3">Iniciar Sesión</button>
-        <router-link to="/signup"
-          ><button class="btn btn-secondary mt-3">Registrarse</button></router-link
-        >
+        <button type="submit" class="btn btn-secondary mt-3 me-2">Iniciar Sesión</button>
+        <Button class="btn btn-secondary mt-3" action="Signup" text="Registrarse" />
       </div>
       <ForgetPass class="mt-3" />
     </div>
