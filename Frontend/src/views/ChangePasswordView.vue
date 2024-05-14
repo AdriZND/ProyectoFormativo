@@ -8,12 +8,12 @@ const route = useRoute();
 const router = useRouter();
 
 const schema = yup.object().shape({
-  password: yup.string().required("Password is required"),
+  password: yup.string().required("Contraseña requerida"),
   passwordConfirmation: yup
     .string()
     .label("")
     .required("You must repeat your password")
-    .oneOf([yup.ref("password"), null], "Passwords must match"),
+    .oneOf([yup.ref("password"), null], "Las contraseñas deben coincidir"),
 });
 
 const { errors, defineField, handleSubmit } = useForm({

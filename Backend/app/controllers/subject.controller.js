@@ -15,14 +15,14 @@ exports.create = async (req, res) => {
       try {
         await Subject.create(subject)
         res.status(200).send({
-          message: "Subject created!",
+          message: "Asignatura creada!",
         });
       } catch (error) {
         console.log(error)
       }
     } else {
       res.status(250).send({
-        message: "Subject already registered",
+        message: "Asignatura ya creada anteriormente",
       })
     }
   } catch (error) {
@@ -36,7 +36,7 @@ exports.findAll = async (req, res) => {
     res.status(200).send(subjects)
   } catch (err) {
     res.status(500).send({
-      message: err.message || "Error retrieving subjects",
+      message: err.message || "Error encontrando asignaturas",
     })
   }
 }
@@ -48,7 +48,7 @@ exports.findAllByTeacher = async (req, res) => {
     res.status(200).send({subjects})
   } catch (error) {
     res.status(500).send({
-      message: err.message || "Error retrieving subjects"
+      message: err.message || "Error encontrando asignaturas"
     })
   }
 }
@@ -60,7 +60,7 @@ exports.findSubjectName = async (req, res) => {
     res.send(subject)
   } catch (error) {
     res.status(500).send({
-      message: err.message || "Error retrieving subject",
+      message: err.message || "Error encontrando asignaturas",
     })
   }
 }

@@ -19,7 +19,7 @@ module.exports = (passport, user) => {
             // If user does not exist
             if (!user) {
               return done(null, false, {
-                message: "Incorrect username or password",
+                message: "Usuario o contraseña incorrectos",
               })
             }
             // Compare the provided password with the hashed password
@@ -31,12 +31,12 @@ module.exports = (passport, user) => {
                   return done(err)
                 }
                 if (!result) {
-                  return done(null, false, { message: "Incorrect password" })
+                  return done(null, false, { message: "Contraseña incorrecta" })
                 }
                 // If everything is correct but the account is inactive
                 if (!user.dataValues.active) {
                   return done(null, false, {
-                    message: "You must validate your e-mail before logging in",
+                    message: "Debes validar el email antes de iniciar sesión",
                   })
                 }
                 // If everything is correct, return the user
@@ -47,7 +47,7 @@ module.exports = (passport, user) => {
           .catch((err) => {
             console.error("Error: ", err)
             return done(null, false, {
-              message: "Something went wrong with your login",
+              message: "Algo fue mal iniciando sesión",
             })
           })
       }

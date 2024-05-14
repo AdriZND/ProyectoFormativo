@@ -30,7 +30,7 @@ export const useAuthStore = defineStore({
           alert(responseData.message)
           this.$router.push("/home/" + user.username)
         } else {
-          console.error("No user data found in the response")
+          console.error("Sin datos del usuario en la respuesta")
         }
       } catch (error) {
         if (error.response && error.response.status === 401) {

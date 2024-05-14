@@ -3,7 +3,7 @@
 <template>
   <div>
     <RouterLink class="h6" to="/forgetpassword"
-      >Did you forget your Password?</RouterLink
+      >¿Olvidaste la contraseña?</RouterLink
     >
   </div>
 </template>

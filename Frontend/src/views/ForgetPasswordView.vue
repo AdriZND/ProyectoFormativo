@@ -5,7 +5,7 @@ import UsersDataService from '@/services/UsersDataService';
 
 
 const schema = yup.object().shape({
-    email: yup.string().email().required('Email is required')
+    email: yup.string().email().required('Email requerido')
 })
 
 const {handleSubmit, defineField, errors  } = useForm({
@@ -49,7 +49,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
 <template>
     <div class="forgetPassword">
         <form @submit="onSubmit">
-            <label class="form-label h6" for="changePassword">Enter the email for changing your password</label>
+            <label class="form-label h6" for="changePassword">Introduce el email para cambiar la contraseña</label>
             <input v-model="email" v-bind="emailAttrs"class="form-control" id="changePassword" /> 
 
             <button type="submit" class="btn btn-secondary mt-3">Send</button>

@@ -20,7 +20,7 @@ exports.create = async (req, res) => {
     if (existingUser) {
       return res
         .status(250)
-        .send({ message: "Username has already been registered" })
+        .send({ message: "El usuario ya ha sido registrado" })
     }
 
     // Check token
@@ -28,7 +28,7 @@ exports.create = async (req, res) => {
       req.body.role === "2" &&
       req.body.token !== process.env.TOKEN_PROFESOR
     ) {
-      return res.status(260).send({ message: "Token provided wasn't valid" })
+      return res.status(260).send({ message: "El token introducido es incorrecto" })
     }
 
     // Hash password
@@ -49,7 +49,7 @@ exports.create = async (req, res) => {
     sendMessageValidation(createdUser.email, createdUser.username)
 
     res.status(200).send({
-      message: "User created successfully, please validate your email to login",
+      message: "Usuario creado correctamente, por favor, valide el correo para iniciar sesión",
     })
   } catch (error) {
     console.error(error)
@@ -66,7 +66,7 @@ exports.findAll = async (req, res) => {
     res.status().send(users)
   } catch (err) {
     res.status(500).send({
-      message: err.message || "Error retrieving users",
+      message: err.message || "Error obteniendo usuarios",
     })
   }
 }
@@ -77,7 +77,7 @@ exports.findAllStudents = async (req, res) => {
     res.status(200).send(students)
   } catch (error) {
     res.status(500).send({
-      message: error.message || "Error retrieving students",
+      message: error.message || "Error obteniendo alumnos",
     })
   }
 }
@@ -92,13 +92,13 @@ exports.findOneUsername = async (req, res) => {
         res.send(user)
       } else {
         res.status(404).send({
-          message: `Cannot find User with username= ${username}`,
+          message: `No es posible encontrar al usuario: ${username}`,
         })
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error retrieving User with username= " + username,
+        message: "No es posible encontrar al usuario: " + username,
       })
     })
 }
@@ -112,17 +112,17 @@ exports.findOneEmail = async (req, res) => {
       if (data.active === true) {
         sendMessageForgetPassword(data.email, data.access_token)
         res.status(200).send({
-          message: "Email sent successfully",
+          message: "Email enviado correctamente",
         })
       } else {
         res.status(400).send({
-          message: "Email is not active",
+          message: "Email inactivo",
         })
       }
     })
     .catch((err) => {
       res.status(404).send({
-        message: `Email is not registered= ${email}`,
+        message: `Email no registrado= ${email}`,
       })
     })
 }
@@ -133,9 +133,9 @@ exports.findOneId = async (req, res) => {
     const id = req.query.id
     const user = await User.findOne({ where: { id: id } })
     if (user) {
-      res.status(200).send({ message: "User found!", user })
+      res.status(200).send({ message: "Usuario encontrado!", user })
     } else {
-      res.send({ message: "Couldnt find user with ID: " + id })
+      res.send({ message: "No es posible encontrar al usuario con ID: " + id })
     }
   } catch (error) {
     console.log(error)
@@ -160,11 +160,11 @@ exports.update = async (req, res) => {
       })
       if (response) {
         res.status(200).json({
-          message: "User updated successfully",
+          message: "Usuario actualizado correctamente",
         })
       } else {
         res.send({
-          message: `Cannot update user with id: ${id}`,
+          message: `No es posible actualizar el usuario con ID: ${id}`,
         })
       }
     } catch (error) {
@@ -189,17 +189,17 @@ exports.updateValidation = async (req, res) => {
       })
       if (response) {
         res.status(200).json({
-          message: "User updated successfully",
+          message: "Usuario actualizado correctamente",
         })
       } else {
         res.send({
-          message: `Cannot update user with username: ${username}`,
+          message: `No es posible actualizar el usuario con nombre de usuario: ${username}`,
         })
       }
     } catch (error) {
       console.log(error)
       res.status(500).send({
-        message: `Error updating user with username=${username} `,
+        message: `No es posible actualizar el usuario con nombre de usuario: ${username} `,
       })
     }
   }
@@ -219,17 +219,17 @@ exports.updateUserPassword = async (req, res) => {
     .then((data) => {
       if (data) {
         res.status(200).send({
-          message: "Password updated successfully",
+          message: "Contraseña actualizada correctamente",
         })
       } else {
         res.send({
-          message: `Cannot update password for that user`,
+          message: `No es posible actualizar la contraseña para el usuario`,
         })
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: `Error updating user`,
+        message: `Error actualizando usuario`,
       })
     })
 }
@@ -249,17 +249,17 @@ exports.delete = async (req, res) => {
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "User deleted successfully",
+          message: "Usuario borrado correctamente",
         })
       } else {
         res.send({
-          message: `Cannot delete user with id= ${id}`,
+          message: `No es posible eliminar el usuario con ID: ${id}`,
         })
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: `Cannot delete user with id= ${id}`,
+        message: `No es posible eliminar el usuario con ID: ${id}`,
       })
     })
 }
@@ -272,12 +272,12 @@ exports.deleteAll = async (req, res) => {
   })
     .then((nums) => {
       res.send({
-        message: `${nums} Users deleted successfully`,
+        message: `${nums} Usuarios eliminados correctamente`,
       })
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "An error occurred while removing all users",
+        message: err.message || "Error al eliminar usuarios",
       })
     })
 }

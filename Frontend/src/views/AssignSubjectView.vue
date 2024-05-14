@@ -34,7 +34,7 @@ const handleSubjectSelected = async (subjectName) => {
 
 const handleSubmit = async () => {
   if (!isUserSelected.value || !isSubjectSelected.value) {
-    alert('Please select both user and subject.')
+    alert('Por favor elige usuario y asignatura.')
     return
   }
   try {

@@ -20,14 +20,14 @@ const schema = yup.object().shape({
     .string()
     .email()
     .required()
-    .oneOf([yup.ref("email"), null], "Emails must match"),
+    .oneOf([yup.ref("email"), null], "Los emails deben coincidir"),
   password: yup.string(),
   /* .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, 'Must contain 8 caracters, lowercase, uppercase, number and special'), */
   passwordConfirmation: yup
     .string()
     .label("")
     .required()
-    .oneOf([yup.ref("password"), null], "Passwords must match"),
+    .oneOf([yup.ref("password"), null], "Los emails deben coincidir"),
 })
 
 const { values, errors, defineField, handleSubmit, setValues } = useForm({
@@ -78,7 +78,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
 <template>
   <form @submit="onSubmit">
     <div class="d-flex flex-column">
-      <label for="name" class="form-label h6">Name</label>
+      <label for="name" class="form-label h6">Nombre</label>
       <input
         v-model="name"
         v-bind="nameAttrs"
@@ -88,7 +88,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
         :placeholder="user.name"
       />
 
-      <label for="surnames" class="form-label h6">Surnames</label>
+      <label for="surnames" class="form-label h6">Apellidos</label>
       <input
         v-model="surnames"
         v-bind="surnamesAttrs"
@@ -97,7 +97,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
         :placeholder="user.surnames"
       />
 
-      <label for="username" class="form-label h6">Username</label>
+      <label for="username" class="form-label h6">Nombre de usuario</label>
       <input
         v-model="username"
         v-bind="usernameAttrs"
@@ -115,7 +115,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
         :placeholder="user.email"
       />
 
-      <label for="repeatEmail" class="form-label h6">Confirm your email</label>
+      <label for="repeatEmail" class="form-label h6">Confirma el email</label>
       <input
         v-model="repeatEmail"
         v-bind="repeatEmailAttrs"
@@ -123,7 +123,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
         class="form-control form-control-sm mb-2"
       />
 
-      <label for="password" class="form-label h6">Password</label>
+      <label for="password" class="form-label h6">Contraseña</label>
       <input
         v-model="password"
         v-bind="passwordAttrs"
@@ -133,7 +133,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
       />
 
       <label for="passwordConfirmation" class="form-label h6"
-        >Repeat your password</label
+        >Repite la contraseña</label
       >
       <input
         v-model="passwordConfirmation"

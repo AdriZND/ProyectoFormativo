@@ -9,7 +9,7 @@ module.exports = (app, passport) => {
       //Handle error
       if (err) {
         console.error(err);
-        return res.status(500).json({ message: "Internal server error" });
+        return res.status(500).json({ message: "Error interno del servidor" });
       }
       //Handle authentication fail
       if (!user) {
@@ -18,12 +18,12 @@ module.exports = (app, passport) => {
       }
 
       //Authentication succeeded
-      console.log("User authenticated successfully");
+      console.log("Usuario autenticado correctamente");
       await sessions.create(user.id);
       const session = await sessions.findOne(user.id);
       return res
         .status(200)
-        .send({ message: "Authentication successful", user, session });
+        .send({ message: "Autentificación correcta", user, session });
     })(req, res, next);
   });
 

@@ -33,7 +33,7 @@ const debouncedFetchUsers = debounce(async () => {
       filteredUsers.value = []
     }
   } catch (error) {
-    console.error("Error fetching users:", error)
+    console.error("Error encontrando usuarios:", error)
   }
 }, 300)
 
@@ -56,7 +56,7 @@ const debouncedFetchSubjects = debounce(async () => {
       filteredSubjects.value = []
     }
   } catch (error) {
-    console.error("Error fetching subjects:", error)
+    console.error("Error encontrando usuarios:", error)
   }
 }, 300)
 const updateFilteredSubjects = () => {

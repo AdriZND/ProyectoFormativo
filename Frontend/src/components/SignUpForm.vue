@@ -8,26 +8,26 @@ const router = useRouter();
 
 //Esquema de validación de los campos del formulario
 const schema = yup.object().shape({
-  name: yup.string().required("Name is required"),
-  surnames: yup.string().required("Surnames are required"),
-  username: yup.string().required("Username is required"),
-  email: yup.string().email().required("Email is required"),
+  name: yup.string().required("Nombre requerido"),
+  surnames: yup.string().required("Apellidos requeridos"),
+  username: yup.string().required("Nombre de usuario requerido"),
+  email: yup.string().email().required("Email requerido"),
   repeatEmail: yup
     .string()
     .email()
     .required()
-    .oneOf([yup.ref("email"), null], "Emails must match"),
-  password: yup.string().required("Password is required"),
+    .oneOf([yup.ref("email"), null], "Los emails deben ser iguales"),
+  password: yup.string().required("Contraseña requerida"),
   /* .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, 'Must contain 8 caracters, lowercase, uppercase, number and special'), */
   passwordConfirmation: yup
     .string()
     .label("")
     .required()
-    .oneOf([yup.ref("password"), null], "Passwords must match"),
-  selectRole: yup.string().required("You must select a role"),
+    .oneOf([yup.ref("password"), null], "Las contraseñas deben coincidir"),
+  selectRole: yup.string().required("Debes seleccionar un rol"),
   token: yup.string().when("selectRole", () => {
     if (selectRole.value === "Teacher") {
-      return yup.string().required("Token must be provided");
+      return yup.string().required("Debes introducir el token");
     }
   }),
 });
@@ -80,7 +80,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit);
 <template>
   <form @submit="onSubmit">
     <div class="d-flex flex-column">
-      <label for="name" class="form-label h6">Name</label>
+      <label for="name" class="form-label h6">Nombre</label>
       <input
         v-model="name"
         v-bind="nameAttrs"
@@ -89,7 +89,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit);
         class="form-control form-control-sm mb-2"
       />
 
-      <label for="surnames" class="form-label h6">Surnames</label>
+      <label for="surnames" class="form-label h6">Apellidos</label>
       <input
         v-model="surnames"
         v-bind="surnamesAttrs"
@@ -97,7 +97,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit);
         class="form-control form-control-sm mb-2"
       />
 
-      <label for="username" class="form-label h6">Username</label>
+      <label for="username" class="form-label h6">Nombre de usuario</label>
       <input
         v-model="username"
         v-bind="usernameAttrs"
@@ -113,7 +113,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit);
         class="form-control form-control-sm mb-2"
       />
 
-      <label for="repeatEmail" class="form-label h6">Confirm your email</label>
+      <label for="repeatEmail" class="form-label h6">Repite tu email</label>
       <input
         v-model="repeatEmail"
         v-bind="repeatEmailAttrs"
@@ -121,7 +121,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit);
         class="form-control form-control-sm mb-2"
       />
 
-      <label for="password" class="form-label h6">Password</label>
+      <label for="password" class="form-label h6">Contraseña</label>
       <input
         v-model="password"
         v-bind="passwordAttrs"
@@ -131,7 +131,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit);
       />
 
       <label for="passwordConfirmation" class="form-label h6"
-        >Repeat your password</label
+        >Confirma la contraseña</label
       >
       <input
         v-model="passwordConfirmation"
@@ -142,7 +142,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit);
       />
 
       <label for="rol" class="for-label h6"
-        >Are you a teacher? Or a student.</label
+        >¿Eres un profesor? O un alumno.</label
       >
       <select
         class="form-select"
@@ -151,11 +151,11 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit);
         v-bind="selectRoleAttrs"
         @change="setValues({ token: '' })"
       >
-        <option value="Student">Student</option>
-        <option value="Teacher">Teacher</option>
+        <option value="Student">Alumno</option>
+        <option value="Teacher">Profesor</option>
       </select>
       <div v-if="selectRole === 'Teacher'" class="d-flex flex-column mt-2">
-        <label class="h6">Enter your access token</label>
+        <label class="h6">Introduce token de registro</label>
         <input
           v-model="token"
           v-bind="tokenAttrs"
@@ -165,7 +165,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit);
       </div>
     </div>
     <div class="d-flex justify-content-center">
-      <button type="submit" class="btn btn-secondary mt-3">Sign up</button>
+      <button type="submit" class="btn btn-secondary mt-3">Enviar</button>
     </div>
   </form>
 </template>

@@ -50,7 +50,7 @@ module.exports = (app) => {
       avatarPath : req.file.path
      }
      await users.updateUserAvatar(userId, avatarPath)
-     res.status(200).send({message: 'Image uploaded!'})
+     res.status(200).send({message: 'Imagen subida!'})
     } catch (error) {
       console.log(error)
     }

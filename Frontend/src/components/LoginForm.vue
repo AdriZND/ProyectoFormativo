@@ -33,30 +33,30 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit);
 <template>
   <form @submit="onSubmit" class="form">
     <div class="mb-2">
-      <label for="username" class="form-label h5">Username</label>
+      <label for="username" class="form-label h5">Usuario</label>
       <input
         v-model="username"
         v-bind="usernameAttrs"
         class="form-control"
         id="username"
-        placeholder="Enter your username"
+        placeholder="Introduce el usuario"
         type="text"
       />
 
-      <label for="password" class="form-label h5">Password</label>
+      <label for="password" class="form-label h5">Contraseña</label>
       <input
         v-model="password"
         v-bind="passwordAttrs"
         type="password"
         id="password"
         class="form-control"
-        placeholder="Enter your password"
+        placeholder="Introduce la contraseña"
       />
 
       <div class="d-flex justify-content-between">
-        <button type="submit" class="btn btn-secondary mt-3">Login</button>
+        <button type="submit" class="btn btn-secondary mt-3">Iniciar Sesión</button>
         <router-link to="/signup"
-          ><button class="btn btn-secondary mt-3">Sign up</button></router-link
+          ><button class="btn btn-secondary mt-3">Registrarse</button></router-link
         >
       </div>
       <ForgetPass class="mt-3" />

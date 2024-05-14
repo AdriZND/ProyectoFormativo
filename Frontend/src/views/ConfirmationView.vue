@@ -28,7 +28,7 @@ const onSubmit = handleSubmit(onSuccess);
   <div class="confirmButton">
     <form @submit="onSubmit">
       <button class="btn btn-success btn-lg m5">
-        Confirm email for {{ route.params.username }}
+        Cofirmar email para {{ route.params.username }}
       </button>
     </form>
   </div>

@@ -4,7 +4,7 @@ import SingUpForm from "../components/SignUpForm.vue";
 
 <template>
   <div class="form">
-    <div class="h1">User registration</div>
+    <div class="h1">Registro de usuario</div>
     <SingUpForm />
   </div>
 </template>

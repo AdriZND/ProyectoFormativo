@@ -11,10 +11,10 @@ const db = require("./app/models");
 db.sequelize
   .authenticate({})
   .then(() => {
-    console.log("Connection successfully established");
+    console.log("Conexión establecida");
   })
   .catch((err) => {
-    console.log("Failed to connect: " + err.message);
+    console.log("Fallo de conexión: " + err.message);
   });
 
 //CORS SETUP

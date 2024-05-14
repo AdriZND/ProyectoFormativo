@@ -21,17 +21,17 @@ exports.delete = async (req, res) => {
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "Session deleted successfully",
+          message: "Sesión eliminada correctamente",
         });
       } else {
         res.send({
-          message: `Cannot delete session with user-id= ${id_user}`,
+          message: `Imposible eliminar sesión con id de usuario: ${id_user}`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: `Cannot delete session with id_user= ${id_user}`,
+        message: `Imposible eliminar sesión con id de usuario: ${id_user}`,
       });
     });
 };

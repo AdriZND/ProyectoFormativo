@@ -18,7 +18,7 @@ exports.findUserRelations = async (req, res) => {
       })
       return res.status(200).send({ relation })
     } else {
-      throw new Error(`Couldn't find user with this ID`)
+      throw new Error(`No se pudo encontrar usuario con ese ID`)
     }
   } catch (error) {
     console.log(error)
@@ -32,7 +32,7 @@ exports.findNumberOfStudents = async (req, res) => {
     res.status(200).send(String(numberOfStudents.length))
   } catch (error) {
     console.log(error)
-    res.status(500).send("internal server error")
+    res.status(500).send("Error interno del servidor")
   }
 }
 
@@ -55,17 +55,17 @@ exports.delete = async (req, res) => {
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "User deleted successfully",
+          message: "Relación eliminada correctamente",
         })
       } else {
         res.send({
-          message: `Cannot delete relation with id= ${id}`,
+          message: `Imposible eliminar la relación con id: ${id}`,
         })
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: `Cannot delete relation with id= ${id}`,
+        message: `Imposible eliminar la relación con id:  ${id}`,
       })
     })
 }
@@ -80,11 +80,11 @@ exports.create = async (req, res) => {
   try {
     const fetchRelation = await Relation.findOne({ where: relation })
     if (fetchRelation) {
-      res.status(250).send({ message: "Relation already created" })
+      res.status(250).send({ message: "Relación ya creada" })
       return
     } else {
       await Relation.create(relation)
-      res.status(200).send({ message: "Relation created!" })
+      res.status(200).send({ message: "Relación creada!" })
     }
   } catch (error) {
     console.log(error)

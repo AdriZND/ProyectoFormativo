@@ -17,5 +17,8 @@ import EditUser from "@/components/EditUser.vue"
   background-color: aliceblue;
   border: black 2px solid;
   padding: 3em;
+  height: auto;
+ width: 90vw;
+ max-width: 30em;
 }
 </style>
