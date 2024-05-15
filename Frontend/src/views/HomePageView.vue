@@ -7,11 +7,12 @@ import UserPage from "../components/UserPage.vue"
 <template>
   <div class="container container-style d-flex flex-column">
     <div class="row d-flex">
-      <div class="col">
-        <h1>HOME PAGE</h1>
+      <div class="col-5">
+        <h1>Pagina inicial</h1>
       </div>
+      <div class="col"></div>
       <div class="col">
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-start">
           <Button
             class="me-2 btn btn-sm btn-secondary"
             action="Profile"

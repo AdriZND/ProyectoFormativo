@@ -45,12 +45,13 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="row mb-5">
-    <div class="col-3">
+  <div class="row mb-5 d-flex align-items-center justify-content-between">
+    <div class="col h1">
      <AvatarDisplay/>
+     {{ user.username }}
     </div>
-    <div class="col h1 d-flex justify-content-center">{{ user.username }}</div>
-    <div class="col d-flex justify-content-center align-items-center">
+    <div class="col"></div>
+    <div class="col d-flex justify-content-start">
       <Button
         action="Edit"
         :editUser="user.id"

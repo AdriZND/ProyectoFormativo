@@ -54,25 +54,27 @@ console.log(relationData)
       <div class="row">
         <h6 class="col">Lista de profesores</h6>
       </div>
-      <div class="table-responsive">
-        <table class="table table-hover table-sm">
-          <thead>
-            <tr>
-              <th scope="col">Nombre</th>
-              <th scope="col">Apellidos</th>
-              <th scope="col">Email</th>
-              <th scope="col">Asignatura</th>
-            </tr>
-          </thead>
-          <tbody class="table-group-divider">
-            <tr v-for="data in relationData">
-              <td>{{ data.teacher.name }}</td>
-              <td>{{ data.teacher.surnames }}</td>
-              <td>{{ data.teacher.email }}</td>
-              <td>{{ data.subject.subject_name }}</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="row">
+        <div class="table-responsive">
+          <table class="table table-hover table-sm">
+            <thead>
+              <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellidos</th>
+                <th scope="col">Email</th>
+                <th scope="col">Asignatura</th>
+              </tr>
+            </thead>
+            <tbody class="table-group-divider">
+              <tr v-for="data in relationData">
+                <td>{{ data.teacher.name }}</td>
+                <td>{{ data.teacher.surnames }}</td>
+                <td>{{ data.teacher.email }}</td>
+                <td>{{ data.subject.subject_name }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
     <div v-if="user.role === 2">
@@ -125,5 +127,7 @@ console.log(relationData)
 </template>
 
 <style scoped>
-
+.container {
+  width: auto;
+}
 </style>

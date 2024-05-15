@@ -12,7 +12,7 @@ const schema = yup.object().shape({
   passwordConfirmation: yup
     .string()
     .label("")
-    .required("You must repeat your password")
+    .required("Debes repetir la contraseña")
     .oneOf([yup.ref("password"), null], "Las contraseñas deben coincidir"),
 });
 
@@ -50,7 +50,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit);
 <template>
   <div class="changePassword">
     <form @submit="onSubmit">
-      <label for="password" class="form-label h6">New password</label>
+      <label for="password" class="form-label h6">Nueva contraseña</label>
       <input
         v-model="password"
         v-bind="passwordAttrs"
@@ -60,7 +60,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit);
       />
 
       <label for="passwordConfirmation" class="form-label h6"
-        >Repeat your new password</label
+        >Repite la contraseña</label
       >
       <input
         v-model="passwordConfirmation"
