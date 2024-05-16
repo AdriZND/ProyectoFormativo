@@ -80,9 +80,9 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
     <div class="d-flex flex-column">
       <label for="name" class="form-label h6">Nombre</label>
       <input
+        id="name"
         v-model="name"
         v-bind="nameAttrs"
-        id="name"
         type="text"
         class="form-control form-control-sm mb-2"
         :placeholder="user.name"
@@ -90,44 +90,44 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
 
       <label for="surnames" class="form-label h6">Apellidos</label>
       <input
+        id="surnames"
         v-model="surnames"
         v-bind="surnamesAttrs"
-        id="surnames"
         class="form-control form-control-sm mb-2"
         :placeholder="user.surnames"
       />
 
       <label for="username" class="form-label h6">Nombre de usuario</label>
       <input
+        id="username"
         v-model="username"
         v-bind="usernameAttrs"
-        id="username"
         class="form-control form-control-sm mb-2"
         :placeholder="user.username"
       />
 
       <label for="email" class="form-label h6">Email</label>
       <input
+        id="email"
         v-model="email"
         v-bind="emailAttrs"
-        id="email"
         class="form-control form-control-sm mb-2"
         :placeholder="user.email"
       />
 
       <label for="repeatEmail" class="form-label h6">Confirma el email</label>
       <input
+        id="repeatEmail"
         v-model="repeatEmail"
         v-bind="repeatEmailAttrs"
-        id="repeatEmail"
         class="form-control form-control-sm mb-2"
       />
 
       <label for="password" class="form-label h6">Contraseña</label>
       <input
+        id="password"
         v-model="password"
         v-bind="passwordAttrs"
-        id="password"
         class="form-control form-control-sm mb-2"
         type="password"
       />
@@ -136,9 +136,9 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
         >Repite la contraseña</label
       >
       <input
+        id="passwordConfirmation"
         v-model="passwordConfirmation"
         v-bind="passwordConfirmationAttrs"
-        id="passwordConfirmation"
         class="form-control form-control-sm mb-2"
         type="password"
       />

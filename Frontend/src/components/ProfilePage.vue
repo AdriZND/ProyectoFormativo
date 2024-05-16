@@ -12,7 +12,6 @@ const user = authStore.user
 const subjects = ref([])
 const numberOfStudents = ref([])
 
-
 const fetchSubjects = async () => {
   try {
     const subjectsData = await SubjectsDataService.findAllByTeacher(user.id)
@@ -47,14 +46,14 @@ onMounted(async () => {
 <template>
   <div class="row mb-5 d-flex align-items-center justify-content-between">
     <div class="col h1">
-     <AvatarDisplay/>
-     {{ user.username }}
+      <AvatarDisplay />
+      {{ user.username }}
     </div>
-    <div class="col"></div>
+    <div class="col" />
     <div class="col d-flex justify-content-start">
       <Button
         action="Edit"
-        :editUser="user.id"
+        :edit-user="user.id"
         text="Editar"
         class="btn btn-sm btn-secondary me-2"
       />
@@ -72,7 +71,7 @@ onMounted(async () => {
     <p v-if="user.role === 1" class="h5">Rol: Alumno</p>
     <p v-else-if="user.role === 2" class="h5">Rol: Profesor</p>
   </div>
-  <div class="row" v-if="user.role === 2">
+  <div v-if="user.role === 2" class="row">
     <div class="table-responsive">
       <table class="table table-hover table-sm">
         <thead>
@@ -82,7 +81,7 @@ onMounted(async () => {
           </tr>
         </thead>
         <tbody class="table-group-divider">
-          <tr v-for="(subject, index) in subjects">
+          <tr v-for="(subject, index) in subjects" :key="subject.id">
             <td>{{ subject.subject_name }}</td>
             <td>{{ numberOfStudents[index] }}</td>
           </tr>

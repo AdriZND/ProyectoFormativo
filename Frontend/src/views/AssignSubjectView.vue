@@ -56,7 +56,7 @@ const handleSubmit = async () => {
 <template>
   <div class="container">
     <div class="mb-3">
-      <p>Selecciona al alumno</p>
+      <p class="h5">Selecciona al alumno</p>
       <DynamicSearch type="User" @user-selected="handleUserSelected" />
     </div>
     <div>
@@ -78,5 +78,6 @@ const handleSubmit = async () => {
   background-color: aliceblue;
   border: black 2px solid;
   padding: 3em;
+  max-width: 40em;
 }
 </style>

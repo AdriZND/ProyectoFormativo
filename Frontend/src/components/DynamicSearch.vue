@@ -103,16 +103,15 @@ console.log(selectedUser)
 <template>
   <div v-if="props.type === 'User'" class="d-flex flex-column">
     <input
-      type="text"
       v-model="searchQueryUsers"
-      @input="debouncedFetchUsers"
+      type="text"
       class="mb-1 form-control form-control-sm"
+      @input="debouncedFetchUsers"
     />
     <select
       v-model="selectedUser"
       class="form-select"
       @change="handleUserchange"
-      
     >
       <!--  <option value="" disabled>Selecciona un usuario</option> -->
       <option
@@ -126,18 +125,16 @@ console.log(selectedUser)
   </div>
   <div v-if="props.type === 'Subject'" class="d-flex flex-column">
     <input
-      type="text"
       v-model="searchQuerySubjects"
-      @input="debouncedFetchSubjects"
+      type="text"
       class="mb-1 form-control form-control-sm"
+      @input="debouncedFetchSubjects"
     />
     <select
       v-model="selectedSubject"
       class="form-select"
       @change="handleSubjectChange"
-      
     >
-     
       <option
         v-for="subject in filteredSubjects"
         :key="subject.id"

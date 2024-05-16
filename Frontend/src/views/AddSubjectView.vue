@@ -1,48 +1,48 @@
 <script setup>
-import { useForm } from "vee-validate";
-import * as yup from "yup";
-import { useRouter } from "vue-router";
-import { useAuthStore } from "@/stores/auth.store";
-import SubjectsDataService from "@/services/SubjectsDataService";
+import { useForm } from "vee-validate"
+import * as yup from "yup"
+import { useRouter } from "vue-router"
+import { useAuthStore } from "@/stores/auth.store"
+import SubjectsDataService from "@/services/SubjectsDataService"
 
-const authStore = useAuthStore();
-const user = authStore.user;
-const router = useRouter();
+const authStore = useAuthStore()
+const user = authStore.user
+const router = useRouter()
 
 const schema = yup.object({
   subject: yup
     .string()
     .required("Debes añadir una asignatura")
     .label("Subject"),
-});
+})
 
-const { values, errors, defineField, handleSubmit } = useForm({
+const {errors, defineField, handleSubmit } = useForm({
   validationSchema: schema,
-});
-const [subject, subjectAttrs] = defineField("subject");
+})
+const [subject, subjectAttrs] = defineField("subject")
 
 const onSuccess = async (subject) => {
   try {
-    const res = await SubjectsDataService.createSubject(subject, user.id);
+    const res = await SubjectsDataService.createSubject(subject, user.id)
     if (res.status === 200) {
-      alert(res.data.message);
-      router.go(-1);
+      alert(res.data.message)
+      router.go(-1)
     } else if (res.status === 250) {
-      alert(res.data.message);
-      console.log(res);
+      alert(res.data.message)
+      console.log(res)
     } else {
-      console.log(res);
+      console.log(res)
     }
   } catch (error) {
-    console.log(error);
+    console.log(error)
   }
-};
+}
 
 const onInvalidSubmit = async () => {
-  await alert(Object.values(errors.value)[0]);
-};
+  await alert(Object.values(errors.value)[0])
+}
 
-const onSubmit = handleSubmit(onSuccess, onInvalidSubmit);
+const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
 </script>
 
 <template>
@@ -53,9 +53,9 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit);
           >Introduce la asignatura</label
         >
         <input
+          id="subject"
           v-model="subject"
           v-bind="subjectAttrs"
-          id="subject"
           class="form-control"
           placeholder="Ej: Lengua"
           type="text"
@@ -75,6 +75,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit);
   background-color: aliceblue;
   border: black 2px solid;
   padding: 3em;
+  max-width: 40em;
 }
 
 .form-control:focus {

@@ -1,10 +1,10 @@
 <script setup>
-import { useForm } from "vee-validate";
-import * as yup from "yup";
-import { useRouter } from "vue-router";
-import UsersDataService from "@/services/UsersDataService";
+import { useForm } from "vee-validate"
+import * as yup from "yup"
+import { useRouter } from "vue-router"
+import UsersDataService from "@/services/UsersDataService"
 
-const router = useRouter();
+const router = useRouter()
 
 //Esquema de validación de los campos del formulario
 const schema = yup.object().shape({
@@ -27,30 +27,30 @@ const schema = yup.object().shape({
   selectRole: yup.string().required("Debes seleccionar un rol"),
   token: yup.string().when("selectRole", () => {
     if (selectRole.value === "Teacher") {
-      return yup.string().required("Debes introducir el token");
+      return yup.string().required("Debes introducir el token")
     }
   }),
-});
+})
 
 const { values, errors, defineField, handleSubmit, setValues } = useForm({
   validationSchema: schema,
   initialValues: {
     selectRole: "Student",
   },
-});
+})
 
 //Parametros del formulario
-const [name, nameAttrs] = defineField("name");
-const [surnames, surnamesAttrs] = defineField("surnames");
-const [username, usernameAttrs] = defineField("username");
-const [email, emailAttrs] = defineField("email");
-const [repeatEmail, repeatEmailAttrs] = defineField("repeatEmail");
-const [password, passwordAttrs] = defineField("password");
+const [name, nameAttrs] = defineField("name")
+const [surnames, surnamesAttrs] = defineField("surnames")
+const [username, usernameAttrs] = defineField("username")
+const [email, emailAttrs] = defineField("email")
+const [repeatEmail, repeatEmailAttrs] = defineField("repeatEmail")
+const [password, passwordAttrs] = defineField("password")
 const [passwordConfirmation, passwordConfirmationAttrs] = defineField(
   "passwordConfirmation"
-);
-const [selectRole, selectRoleAttrs] = defineField("selectRole");
-const [token, tokenAttrs] = defineField("token");
+)
+const [selectRole, selectRoleAttrs] = defineField("selectRole")
+const [token, tokenAttrs] = defineField("token")
 
 //Petición de axios para crear el usuario en BDD
 //Si el submit es exitoso
@@ -58,23 +58,23 @@ const onSuccess = async (user) => {
   await UsersDataService.create(user)
     .then((res) => {
       if (res.status === 200) {
-        router.push("/");
-        alert(res.data.message);
+        router.push("/")
+        alert(res.data.message)
       } else {
-        alert(res.data.message);
-        console.log(res);
+        alert(res.data.message)
+        console.log(res)
       }
     })
     .catch((err) => {
-      console.log(err);
-    });
-};
+      console.log(err)
+    })
+}
 
 //Si el submit tiene algun error
 const onInvalidSubmit = () => {
-  alert(Object.values(errors.value)[0]);
-};
-const onSubmit = handleSubmit(onSuccess, onInvalidSubmit);
+  alert(Object.values(errors.value)[0])
+}
+const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
 </script>
 
 <template>
@@ -82,50 +82,50 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit);
     <div class="d-flex flex-column">
       <label for="name" class="form-label h6">Nombre</label>
       <input
+        id="name"
         v-model="name"
         v-bind="nameAttrs"
-        id="name"
         type="text"
         class="form-control form-control-sm mb-2"
       />
 
       <label for="surnames" class="form-label h6">Apellidos</label>
       <input
+        id="surnames"
         v-model="surnames"
         v-bind="surnamesAttrs"
-        id="surnames"
         class="form-control form-control-sm mb-2"
       />
 
       <label for="username" class="form-label h6">Nombre de usuario</label>
       <input
+        id="username"
         v-model="username"
         v-bind="usernameAttrs"
-        id="username"
         class="form-control form-control-sm mb-2"
       />
 
       <label for="email" class="form-label h6">Email</label>
       <input
+        id="email"
         v-model="email"
         v-bind="emailAttrs"
-        id="email"
         class="form-control form-control-sm mb-2"
       />
 
       <label for="repeatEmail" class="form-label h6">Repite tu email</label>
       <input
+        id="repeatEmail"
         v-model="repeatEmail"
         v-bind="repeatEmailAttrs"
-        id="repeatEmail"
         class="form-control form-control-sm mb-2"
       />
 
       <label for="password" class="form-label h6">Contraseña</label>
       <input
+        id="password"
         v-model="password"
         v-bind="passwordAttrs"
-        id="password"
         class="form-control form-control-sm mb-2"
         type="password"
       />
@@ -134,9 +134,9 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit);
         >Confirma la contraseña</label
       >
       <input
+        id="passwordConfirmation"
         v-model="passwordConfirmation"
         v-bind="passwordConfirmationAttrs"
-        id="passwordConfirmation"
         class="form-control form-control-sm mb-2"
         type="password"
       />
@@ -145,9 +145,9 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit);
         >¿Eres un profesor? O un alumno.</label
       >
       <select
-        class="form-select"
         id="rol"
         v-model="selectRole"
+        class="form-select"
         v-bind="selectRoleAttrs"
         @change="setValues({ token: '' })"
       >

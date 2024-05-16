@@ -2,9 +2,9 @@
 
 <template>
   <div>
-    <RouterLink class="h6" to="/forgetpassword"
-      >¿Olvidaste la contraseña?</RouterLink
-    >
+    <RouterLink class="h6" to="/forgetpassword">
+      ¿Olvidaste la contraseña?
+    </RouterLink>
   </div>
 </template>
 

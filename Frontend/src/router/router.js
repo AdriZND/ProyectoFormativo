@@ -1,16 +1,15 @@
-import { createWebHistory, createRouter } from "vue-router";
-import { useAuthStore } from "@/stores/auth.store";
-
-import LoginView from "@/views/LoginView.vue";
-import ForgetPasswordView from "@/views/ForgetPasswordView.vue";
-import SignUpView from "@/views/SignUpView.vue";
-import ConfirmationView from "@/views/ConfirmationView.vue";
-import ChangePasswordView from "@/views/ChangePasswordView.vue";
-import UserProfileView from "@/views/UserProfileView.vue";
-import HomePageView from "@/views/HomePageView.vue";
-import EditUserView from "@/views/EditUserView.vue";
-import AddSubjectView from "@/views/AddSubjectView.vue";
-import AssignSubjectView from "@/views/AssignSubjectView.vue";
+import { createWebHistory, createRouter } from "vue-router"
+import { useAuthStore } from "@/stores/auth.store"
+import LoginView from "@/views/LoginView.vue"
+import ForgetPasswordView from "@/views/ForgetPasswordView.vue"
+import SignUpView from "@/views/SignUpView.vue"
+import ConfirmationView from "@/views/ConfirmationView.vue"
+import ChangePasswordView from "@/views/ChangePasswordView.vue"
+import UserProfileView from "@/views/UserProfileView.vue"
+import HomePageView from "@/views/HomePageView.vue"
+import EditUserView from "@/views/EditUserView.vue"
+import AddSubjectView from "@/views/AddSubjectView.vue"
+import AssignSubjectView from "@/views/AssignSubjectView.vue"
 
 const routes = [
   {
@@ -53,25 +52,25 @@ const routes = [
     path: "/subjects/assign",
     component: AssignSubjectView,
   },
-];
+]
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
-});
+})
 
 router.beforeEach(async (to) => {
-  const publicPages = ["/", "/forgetpassword", "/signup"];
+  const publicPages = ["/", "/forgetpassword", "/signup"]
   const publicDynamicPages =
     to.path.includes("/confirmation/") ||
-    to.path.includes("/forgetpassword/changepassword/");
-  const isPublic = publicPages.includes(to.path) || publicDynamicPages;
-  const auth = useAuthStore();
+    to.path.includes("/forgetpassword/changepassword/")
+  const isPublic = publicPages.includes(to.path) || publicDynamicPages
+  const auth = useAuthStore()
 
   if (!isPublic && !auth.session) {
-    auth.returnUrl = to.fullPath;
-    return "/";
+    auth.returnUrl = to.fullPath
+    return "/"
   }
-});
+})
 
-export default router;
+export default router
