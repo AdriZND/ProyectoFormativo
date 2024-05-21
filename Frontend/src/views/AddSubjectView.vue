@@ -16,7 +16,7 @@ const schema = yup.object({
     .label("Subject"),
 })
 
-const {errors, defineField, handleSubmit } = useForm({
+const { errors, defineField, handleSubmit } = useForm({
   validationSchema: schema,
 })
 const [subject, subjectAttrs] = defineField("subject")
@@ -47,7 +47,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
 
 <template>
   <div class="container">
-    <form @submit="onSubmit" class="form">
+    <form class="form" @submit="onSubmit" >
       <div>
         <label class="form-label h5" for="subject"
           >Introduce la asignatura</label

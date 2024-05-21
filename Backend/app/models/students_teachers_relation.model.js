@@ -46,34 +46,6 @@ module.exports = (sequelize, Sequelize) => {
     }
   );
 
-  /*   Relation.sync().then(() => {
-
-        Relation.create({
-            id_student: 14,
-            id_teacher: 2,
-            id_subject: 1
-        })  
-        Relation.create({
-            id_student: 14,
-            id_teacher: 3,
-            id_subject: 2
-        }) 
-        Relation.create({
-            id_student: 14,
-            id_teacher: 7,
-            id_subject: 3
-        }) 
-        Relation.create({
-            id_student: 14,
-            id_teacher: 5,
-            id_subject: 4
-        }) 
-        Relation.create({
-            id_student: 14,
-            id_teacher: 6,
-            id_subject: 5
-        })  
-        // Relation.destroy({where: {id: 17}})
-    })   */
+ 
   return Relation;
 };

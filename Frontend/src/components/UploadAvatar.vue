@@ -34,8 +34,8 @@ const onUpload = async () => {
       :url="userUrl"
       accept="image/*"
       :auto="true"
-      :fileLimit="1"
-      :maxFileSize="1000000"
+      :file-limit="1"
+      :max-file-size="1000000"
       @upload="onUpload"
     />
   </form>

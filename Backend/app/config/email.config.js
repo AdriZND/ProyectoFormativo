@@ -9,9 +9,11 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+const sendURL = process.env.NODE_ENV === 'production' ? "http://localhost:81/" : "http://localhost:5173/"
+
 //Funcion para enviar el mensaje con nodemailer al usuario que acaba de registrarse
 async function sendMessageValidation(userEmail, userURL) {
-  userURL = "http://127.0.0.1:5173/confirmation/" + userURL;
+  userURL = sendURL + "confirmation/" + userURL;
   const info = await transporter.sendMail({
     from: '"User registration" <justyn.jones@ethereal.email>',
     to: userEmail,
@@ -27,7 +29,7 @@ async function sendMessageValidation(userEmail, userURL) {
 }
 
 async function sendMessageForgetPassword(userEmail, userURL) {
-  userURL = "http://127.0.0.1:5173/forgetpassword/changepassword/" + userURL;
+  userURL = sendURL + "forgetpassword/changepassword/" + userURL;
   const info = await transporter.sendMail({
     from: '"User registration" <justyn.jones@ethereal.email>',
     to: userEmail,

@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/require-default-prop -->
 <script setup>
 import RelationsDataService from "@/services/RelationsDataService"
 import { useAuthStore } from "@/stores/auth.store"
