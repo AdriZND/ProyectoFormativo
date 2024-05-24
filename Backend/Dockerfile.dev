@@ -1,0 +1,18 @@
+# Usa una imagen base de Node.js
+FROM node:20
+# Especifica un directorio de trabajo para la imagen
+WORKDIR /app
+# Copia el package.json y el package-lock.json
+COPY package*.json .
+# Instala las dependencias
+RUN npm install
+#Copia el resto de los archivos
+COPY . .
+#Expone el puerto 8080
+EXPOSE 8080
+#Ejecuta npm start cuando se crea el contenedor
+CMD ["npm", "start"]
+
+
+
+

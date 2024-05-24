@@ -22,8 +22,8 @@ services:
 
   backend:
     build:
-      context: ./Backend
-      dockerfile: Dockerfile
+      context: ./
+      dockerfile: ./Backend/Dockerfile
     restart: always
     env_file:
       - ./Backend/.env
@@ -37,17 +37,7 @@ services:
     networks:
       - app-network
 
-  frontend:
-    build:
-      context: ./Frontend
-      dockerfile: Dockerfile
-    restart: always
-    environment:
-      NODE_ENV: production
-    ports:
-      - "81:80" 
-    networks:
-      - app-network
+  
 
 volumes:
   mysql-data:

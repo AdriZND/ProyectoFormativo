@@ -22,16 +22,12 @@ services:
   backend:
     build:
       context: ./Backend
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     restart: always
     env_file:
       - ./Backend/.env
     environment:
       NODE_ENV: development
-      DB_HOST: mysql
-      DB_USER: user
-      DB_PASSWORD: user
-      DB: proyecto_formativo_db
     ports:
       - 8080:8080
     volumes:

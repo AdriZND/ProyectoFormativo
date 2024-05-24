@@ -34,7 +34,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // Serve static files from the 'dist' directory
-
+app.use("/", express.static(path.join(__dirname, "dist")))
 //Provide static
 app.use("/app/assets", express.static(path.join(__dirname, "app", "assets")))
 
